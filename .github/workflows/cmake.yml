@@ -6,14 +6,14 @@ name: CI
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ master, development ]
   pull_request:
     branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  build-Linux:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -22,12 +22,96 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: cmake --version
-
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
+        # Runs a set of commands using the runners shell
+    - name: Display Version Info
       run: |
+        cmake --version
         g++-9 --version
         clang-9 --version
+        echo $GITHUB_WORKSPACE
+
+    - name: Create build directory for GCC and Clang
+      run: |
+        cmake -E make_directory ${{runner.temp}}/build_gcc_9
+        cmake -E make_directory ${{runner.temp}}/build_clang_9
+
+    - name: Configure CMake for GCC 9
+      shell: bash
+      working-directory: ${{runner.temp}}/build_gcc_9
+      run: |
+        pwd
+        cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
+
+    - name: Build for GCC 9
+      working-directory: ${{runner.temp}}/build_gcc_9
+      run: |
+        pwd
+        cmake --build .
+        ./untitled
+
+    - name: Configure CMake for Clang 9
+      shell: bash
+      working-directory: ${{runner.temp}}/build_clang_9
+      run: |
+        pwd
+        cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=clang-9 -DCMAKE_CXX_COMPILER=clang++-9
+        
+
+    - name: Build for Clang 9      
+      working-directory: ${{runner.temp}}/build_clang_9
+      run: |
+        pwd
+        cmake --build .        
+        ./untitled
+  
+  build-Windows:
+    runs-on: windows-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Display Version Info
+        run: cmake --version
+
+  build-MacOS:
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Display Version Info
+        run: |
+          cmake --version
+          clang --version
+          gcc-9 --version
+      
+      - name: Create build directory for GCC and Clang
+        run: |
+          cmake -E make_directory ${{runner.temp}}/build_gcc_9
+          cmake -E make_directory ${{runner.temp}}/build_clang
+
+      - name: Configure CMake for GCC 9
+        shell: bash
+        working-directory: ${{runner.temp}}/build_gcc_9
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
+
+      - name: Build for GCC 9
+        working-directory: ${{runner.temp}}/build_gcc_9
+        shell: bash
+        run: |
+          pwd
+          cmake --build .
+          ./untitled
+
+      - name: Configure CMake for Clang
+        shell: bash
+        working-directory: ${{runner.temp}}/build_clang
+        run: cmake $GITHUB_WORKSPACE
+
+      - name: Build for Clang    
+        working-directory: ${{runner.temp}}/build_clang
+        shell: bash
+        run: |
+          pwd
+          cmake --build .
+          ./untitled
