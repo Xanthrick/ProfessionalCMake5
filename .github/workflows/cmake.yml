@@ -106,14 +106,9 @@ jobs:
       - name: Configure CMake for Clang
         shell: bash
         working-directory: ${{runner.temp}}/build_clang
-        run: |
-          pwd
-          cmake $GITHUB_WORKSPACE        
+        run: cmake $GITHUB_WORKSPACE
 
       - name: Build for Clang    
         working-directory: ${{runner.temp}}/build_clang
         shell: bash
-        run: |
-          pwd
-          cmake --build .        
-          ./untitled
+        run: cmake --build .
