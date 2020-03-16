@@ -28,6 +28,11 @@ jobs:
         cmake --version
         g++-9 --version
         clang-9 --version
+
+    - name: Create build directory for GCC
+      run: ls -lha
+
+
   
   build-Windows:
     runs-on: windows-latest
