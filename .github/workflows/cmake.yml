@@ -41,7 +41,7 @@ jobs:
       run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
 
     - name: Build for GCC 9
-      working-directory: ${{runner.temp}/build_gcc_9
+      working-directory: ${{runner.temp}}/build_gcc_9
       run: cmake --build .
 
     - name: Configure CMake for GCC 9
