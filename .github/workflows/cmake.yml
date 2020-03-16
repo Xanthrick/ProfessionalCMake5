@@ -32,26 +32,34 @@ jobs:
 
     - name: Create build directory for GCC and Clang
       run: |
-        cmake -E make_directory ${{runner.workspace}}/build_gcc_9
-        cmake -E make_directory ${{runner.workspace}}/build_clang_9
+        cmake -E make_directory ${{runner.temp}}/build_gcc_9
+        cmake -E make_directory ${{runner.temp}}/build_clang_9
 
     - name: Configure CMake for GCC 9
       shell: bash
-      working-directory: ${{runner.workspace}}/build_gcc_9
+      working-directory: ${{runner.temp}}/build_gcc_9
       run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
 
     - name: Build for GCC 9
-      working-directory: ${{runner.workspace}}/build_gcc_9
+      working-directory: ${{runner.temp}/build_gcc_9
       run: cmake --build .
 
     - name: Configure CMake for GCC 9
       shell: bash
-      working-directory: ${{runner.workspace}}/build_clang_9
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=clang-9 -DCMAKE_CXX_COMPILER=clang++-9
+      working-directory: ${{runner.temp}}/build_clang_9
+      run: |
+        ls -lha
+        cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=clang-9 -DCMAKE_CXX_COMPILER=clang++-9
+        ls -lha
+        ./untitled
 
-    - name: Build for GCC 9
-      working-directory: ${{runner.workspace}}/build_clang_9
-      run: cmake --build .
+    - name: Build for GCC 9      
+      working-directory: ${{runner.temp}}/build_clang_9
+      run: |
+        ls -lha
+        cmake --build .
+        ls -lha
+        ./untitled
   
   build-Windows:
     runs-on: windows-latest
@@ -71,5 +79,5 @@ jobs:
       - name: Display Version Info
         run: |
           cmake --version
-          clang --version
+          clang-9 --version
           gcc-9 --version
