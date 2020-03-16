@@ -28,11 +28,30 @@ jobs:
         cmake --version
         g++-9 --version
         clang-9 --version
+        echo $GITHUB_WORKSPACE
 
-    - name: Create build directory for GCC
-      run: ls -lha
+    - name: Create build directory for GCC and Clang
+      run: |
+        cmake -E make_directory ${{runner.workspace}}/build_gcc_9
+        cmake -E make_directory ${{runner.workspace}}/build_clang_9
 
+    - name: Configure CMake for GCC 9
+      shell: bash
+      working-directory: ${{runner.workspace}}/build_gcc_9
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPIILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
 
+    - name: Build for GCC 9
+      working-directory: ${{runner.workspace}}/build_gcc_9
+      run: cmake --build .
+
+      - name: Configure CMake for GCC 9
+        shell: bash
+        working-directory: ${{runner.workspace}}/build_clang_9
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPIILER=clang-9 -DCMAKE_CXX_COMPILER=clang++-9
+
+      - name: Build for GCC 9
+        working-directory: ${{runner.workspace}}/build_clang_9
+        run: cmake --build .
   
   build-Windows:
     runs-on: windows-latest
