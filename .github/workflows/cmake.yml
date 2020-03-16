@@ -46,7 +46,7 @@ jobs:
       - name: Display Version Info
         run: |
           cmake --version
-          clang -- version
+          clang --version
           gcc --version
       
   
