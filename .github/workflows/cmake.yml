@@ -38,7 +38,7 @@ jobs:
     - name: Configure CMake for GCC 9
       shell: bash
       working-directory: ${{runner.workspace}}/build_gcc_9
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPIILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
 
     - name: Build for GCC 9
       working-directory: ${{runner.workspace}}/build_gcc_9
@@ -47,7 +47,7 @@ jobs:
     - name: Configure CMake for GCC 9
       shell: bash
       working-directory: ${{runner.workspace}}/build_clang_9
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPIILER=clang-9 -DCMAKE_CXX_COMPILER=clang++-9
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=clang-9 -DCMAKE_CXX_COMPILER=clang++-9
 
     - name: Build for GCC 9
       working-directory: ${{runner.workspace}}/build_clang_9
