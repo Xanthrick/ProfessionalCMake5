@@ -51,7 +51,6 @@ jobs:
         ls -lha
         cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=clang-9 -DCMAKE_CXX_COMPILER=clang++-9
         ls -lha
-        ./untitled
 
     - name: Build for GCC 9      
       working-directory: ${{runner.temp}}/build_clang_9
