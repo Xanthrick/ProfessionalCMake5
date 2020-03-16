@@ -44,20 +44,19 @@ jobs:
       working-directory: ${{runner.temp}}/build_gcc_9
       run: cmake --build .
 
-    - name: Configure CMake for GCC 9
+    - name: Configure CMake for Clang 9
       shell: bash
       working-directory: ${{runner.temp}}/build_clang_9
       run: |
-        ls -lha
+        pwd
         cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=clang-9 -DCMAKE_CXX_COMPILER=clang++-9
-        ls -lha
+        
 
-    - name: Build for GCC 9      
+    - name: Build for Clang 9      
       working-directory: ${{runner.temp}}/build_clang_9
       run: |
-        ls -lha
-        cmake --build .
-        ls -lha
+        pwd
+        cmake --build .        
         ./untitled
   
   build-Windows:
@@ -78,5 +77,36 @@ jobs:
       - name: Display Version Info
         run: |
           cmake --version
-          clang-9 --version
+          clang --version
           gcc-9 --version
+      
+      - name: Create build directory for GCC and Clang
+        run: |
+          cmake -E make_directory ${{runner.temp}}/build_gcc_9
+          cmake -E make_directory ${{runner.temp}}/build_clang_9
+
+      - name: Configure CMake for GCC 9
+        shell: bash
+        working-directory: ${{runner.temp}}/build_gcc_9
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_C_COMPILER=gcc-9 -DCMAKE_CXX_COMPILER=g++-9
+
+      - name: Build for GCC 9
+        working-directory: ${{runner.temp}}/build_gcc_9
+        run: |
+          pwd
+          cmake --build .
+          ./untitled
+
+      - name: Configure CMake for Clang
+        shell: bash
+        working-directory: ${{runner.temp}}/build_clang
+        run: |
+          pwd
+          cmake $GITHUB_WORKSPACE        
+
+      - name: Build for Clang    
+        working-directory: ${{runner.temp}}/build_clang
+        run: |
+          pwd
+          cmake --build .        
+          ./untitled
