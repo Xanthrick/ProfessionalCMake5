@@ -47,7 +47,7 @@ jobs:
         run: |
           cmake --version
           clang --version
-          gcc --version
+          gcc-9 --version
       
   
           
