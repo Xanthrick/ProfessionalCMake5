@@ -88,7 +88,7 @@ jobs:
       - name: Create build directory for GCC and Clang
         run: |
           cmake -E make_directory ${{runner.temp}}/build_gcc_9
-          cmake -E make_directory ${{runner.temp}}/build_clang_9
+          cmake -E make_directory ${{runner.temp}}/build_clang
 
       - name: Configure CMake for GCC 9
         shell: bash
@@ -111,4 +111,7 @@ jobs:
       - name: Build for Clang    
         working-directory: ${{runner.temp}}/build_clang
         shell: bash
-        run: cmake --build .
+        run: |
+          pwd
+          cmake --build .
+          ./untitled
