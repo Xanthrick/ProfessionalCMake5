@@ -69,16 +69,15 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Display Version Info
-        run: |
-          pwd
-          cmake --version
-          ls
-          cd ..
-          mkdir build
-          cd build
-          cmake {{runner.workspace}}
+
+      - name: Create build directory
+        shell: bash
+        run: cmake -E make_directory ${{runner.temp}}/build_default
+
+      - name: config cmake default
+        working-directory: ${{runner.temp}}/build_default
+        shell: bash
+        run: cmake $GITHUB_WORKSPACE
 
   build-MacOS:
     runs-on: macos-latest
