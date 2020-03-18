@@ -88,8 +88,7 @@ jobs:
       - name: config cmake default
         shell: bash
         working-directory: ${{runner.temp}}\build_clang
-        run: cmake -DCMAKE_C_COMPILER:FILEPATH="C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO/2019/ENTERPRISE/VC/Tools/Llvm/bin/clang-cl.exe" -DCMAKE_CXX_COMPILER:FILEPATH="C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO/2019/ENTERPRISE/VC/Tools/Llvm/bin/clang-cl.exe" $GITHUB_WORKSPACE
-
+        run: "C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2019\ENTERPRISE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\CMake\bin\cmake.exe" -G "Ninja" -DCMAKE_INSTALL_PREFIX:PATH="${{runner.temp}}\x64-Debug" -DCMAKE_C_COMPILER:FILEPATH="C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO/2019/ENTERPRISE/VC/Tools/Llvm/bin/clang-cl.exe" -DCMAKE_CXX_COMPILER:FILEPATH="C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO/2019/ENTERPRISE/VC/Tools/Llvm/bin/clang-cl.exe"  -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_MAKE_PROGRAM="C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2019\ENTERPRISE\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe" $GITHUB_WORKSPACE
       - name: build with VS default
         working-directory: ${{runner.temp}}\build_clang
         run: cmake --build .
