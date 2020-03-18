@@ -73,7 +73,6 @@ jobs:
       - name: Display Version Info
         run: |
           cmake --version
-          ls -lha
           dir
 
   build-MacOS:
