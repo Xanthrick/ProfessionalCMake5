@@ -82,7 +82,7 @@ jobs:
         working-directory: ${{runner.temp}}\build_default
         run: |
           cmake --build .
-          ./untitled
+          ./Debug/untitled.exe
 
   build-MacOS:
     runs-on: macos-latest
