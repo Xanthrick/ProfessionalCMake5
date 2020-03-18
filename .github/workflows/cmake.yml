@@ -77,7 +77,7 @@ jobs:
       - name: config cmake default
         working-directory: ${{runner.temp}}/build_default
         shell: bash
-        run: cmake {{runner.workspace}}
+        run: cmake ${{runner.workspace}}
 
   build-MacOS:
     runs-on: macos-latest
