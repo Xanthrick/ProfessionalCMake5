@@ -88,7 +88,7 @@ jobs:
       - name: config cmake default
         shell: bash
         working-directory: ${{runner.temp}}\build_clang
-        run: cmake $GITHUB_WORKSPACE -T llvm
+        run: cmake $GITHUB_WORKSPACE -T "LLVM-vs2019"
 
       - name: build with VS default
         working-directory: ${{runner.temp}}\build_clang
