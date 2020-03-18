@@ -71,7 +71,10 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Display Version Info
-        run: cmake --version
+        run: |
+          cmake --version
+          ls -lha
+          dir
 
   build-MacOS:
     runs-on: macos-latest
