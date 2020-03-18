@@ -82,17 +82,17 @@ jobs:
         working-directory: ${{runner.temp}}\build_default
         run: cmake --build .
 
-          - name: Create build directory
-            run: cmake -E make_directory ${{runner.temp}}\build_clang
+      - name: Create build directory clang
+        run: cmake -E make_directory ${{runner.temp}}\build_clang
 
-          - name: config cmake default
-            shell: bash
-            working-directory: ${{runner.temp}}\build_clang
-            run: cmake $GITHUB_WORKSPACE -T llvm
+      - name: config cmake default
+        shell: bash
+        working-directory: ${{runner.temp}}\build_clang
+        run: cmake $GITHUB_WORKSPACE -T llvm
 
-          - name: build with VS default
-            working-directory: ${{runner.temp}}\build_clang
-            run: cmake --build .
+      - name: build with VS default
+        working-directory: ${{runner.temp}}\build_clang
+        run: cmake --build .
 
   build-MacOS:
     runs-on: macos-latest
