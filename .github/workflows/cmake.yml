@@ -72,8 +72,13 @@ jobs:
       
       - name: Display Version Info
         run: |
+          pwd
           cmake --version
-          dir
+          ls
+          cd ..
+          mkdir build
+          cd build
+          cmake {{runner.workspace}}
 
   build-MacOS:
     runs-on: macos-latest
