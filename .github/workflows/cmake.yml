@@ -74,9 +74,12 @@ jobs:
         run: cmake -E make_directory ${{runner.temp}}\build_default
 
       - name: config cmake default
-        shell: bash
         working-directory: ${{runner.temp}}\build_default
         run: cmake $GITHUB_WORKSPACE
+
+      - name: build with VS default
+        working-directory: ${{runner.temp}}\build_default
+        run: cmake --build .
 
   build-MacOS:
     runs-on: macos-latest
