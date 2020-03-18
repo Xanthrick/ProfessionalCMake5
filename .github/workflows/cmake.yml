@@ -83,12 +83,12 @@ jobs:
         run: cmake --build .
 
       - name: Create build directory clang
-        run: cmake -E make_directory ${{runner.temp}}\build_clang
+        run: cmake -E make_directory ${{runner.temp}}\build_clang =DCMAKE_CXX_COMPILER=C":\Program Files(x86)\MICROSOFT VISUAL STUDIO\2019\enterprise\VC\Tools\Llvm\bin\clang-cl.exe"
 
       - name: config cmake default
         shell: bash
         working-directory: ${{runner.temp}}\build_clang
-        run: cmake $GITHUB_WORKSPACE -T "clang_cl_x64"
+        run: cmake $GITHUB_WORKSPACE
 
       - name: build with VS default
         working-directory: ${{runner.temp}}\build_clang
